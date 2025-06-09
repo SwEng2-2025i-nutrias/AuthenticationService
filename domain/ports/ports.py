@@ -8,7 +8,7 @@ class AuthInputPort(ABC):
         pass
 
     @abstractmethod
-    def login_user(self, email:str, password_hash:str) -> User:
+    def login_user(self, email:str, password:str) -> User:
         pass
 
 # Output port for the domain layer of the application.
