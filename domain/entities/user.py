@@ -1,7 +1,9 @@
+from datetime import datetime
+
 class User:
 
     # Represents a user in the system.
-    def __init__(self, id:str, email:str, password_hash:str, name:str, role:str, created_at:str, last_login_at:str|None=None):
+    def __init__(self, id:str, email:str, password_hash:str, name:str, role:str, created_at:datetime, last_login_at:str|None=None):
         self.id = id
         self.email = email
         self.password_hash = password_hash
@@ -11,7 +13,7 @@ class User:
         self.last_login_at = last_login_at
 
     # Converts the User object to a dictionary representation.
-    def to_dict(self) -> dict[str, str|None]:
+    def to_dict(self) -> dict[str, str|datetime|None]:
         return {
             "id": self.id,
             "email": self.email,
@@ -31,7 +33,7 @@ class User:
         password_hash = data["password_hash"]
         name = data["name"]
         role = data["role"]
-        created_at = data["created_at"]
+        created_at = datetime.fromisoformat(data["created_at"])
         last_login_at = data.get("last_login_at", None)
 
         
