@@ -3,7 +3,7 @@ from datetime import datetime
 class User:
 
     # Represents a user in the system.
-    def __init__(self, id:str, email:str, password_hash:str, name:str, role:str, created_at:datetime, last_login_at:str|None=None):
+    def __init__(self, id:str, email:str, password_hash:str, name:str, role:str, created_at:datetime, last_login_at:datetime|None=None):
         self.id = id
         self.email = email
         self.password_hash = password_hash
@@ -34,7 +34,7 @@ class User:
         name = data["name"]
         role = data["role"]
         created_at = datetime.fromisoformat(data["created_at"])
-        last_login_at = data.get("last_login_at", None)
+        last_login_at = datetime.fromisoformat(data["last_login_at"]) if data.get("last_login_at") else None
 
         
         user = cls(id, email, password_hash, name, role, created_at, last_login_at)
