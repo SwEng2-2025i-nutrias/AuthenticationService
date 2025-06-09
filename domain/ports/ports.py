@@ -4,7 +4,7 @@ from ..entities.user import User
 # Input port for the domain layer of the application.
 class AuthInputPort(ABC):
     @abstractmethod
-    def register_user(self, id:str, email:str, password_hash:str, name:str, role:str, created_at:str, last_login_at:str|None=None) -> User:
+    def register_user(self, email:str, password:str, name:str, role:str) -> User:
         pass
 
     @abstractmethod
