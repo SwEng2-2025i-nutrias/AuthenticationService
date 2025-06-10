@@ -17,7 +17,6 @@ auth_service = AuthService(
 @swag_from("docs/register_user.yaml")
 def register_user():
     data = request.get_json()
-    print(data)
 
     if data is None:
         return {"error": "Invalid or missing JSON body"}, 400
@@ -30,7 +29,7 @@ def register_user():
     if not email or not password or not name or not role:
         return jsonify({"error": "Missing required fields"}), 400
 
-    try:
+    try: 
         user = auth_service.register_user(email, password, name, role)
         return jsonify(user.public_to_dict()), 201
     except ValueError as e:

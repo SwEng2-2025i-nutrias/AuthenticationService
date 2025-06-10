@@ -1,8 +1,9 @@
 import json
+from pathlib import Path
 from domain.ports.ports import AuthOutputPort
 from domain.entities.user import User
 
-DB_FILE = "db.json"
+DB_FILE = Path(__file__).parent / 'db.json'
 
 class LocalDBUserRepository(AuthOutputPort):
     def _load_db(self)->list[dict[str, str]]:

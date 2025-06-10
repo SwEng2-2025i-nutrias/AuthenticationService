@@ -42,6 +42,10 @@ class AuthService(AuthInputPort):
             created_at=creation_time
         )
 
+        # Save the user to the repository
+        self.repo.save_user(user)
+
+        # Return the user object
         return user
     
     def login_user(self, email: str, password: str) -> User:
