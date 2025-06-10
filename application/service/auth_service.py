@@ -1,17 +1,19 @@
 from domain.ports.ports import AuthInputPort, AuthOutputPort
 from domain.ports.password_hasher import PasswordHasherOutputPort
 from domain.ports.unique_ider import UniqueIderOutputPort
+from domain.ports.token_handler import TokenManagerOutputPort
 from domain.entities.user import User
 
 # Datetime is used to set the creation timestamp
 from datetime import datetime
 
 class AuthService(AuthInputPort):
-    def __init__(self, repo: AuthOutputPort, hasher: PasswordHasherOutputPort, unique_ider: UniqueIderOutputPort):
+    def __init__(self, repo: AuthOutputPort, hasher: PasswordHasherOutputPort, unique_ider: UniqueIderOutputPort, token_handler: TokenManagerOutputPort):
         
         self.repo = repo
         self.hasher = hasher
         self.unique_ider = unique_ider
+        self.token_handler = token_handler
 
     def register_user(self, email: str, password: str, name: str, role: str)->User:
         """

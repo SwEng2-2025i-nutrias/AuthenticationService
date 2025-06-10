@@ -4,13 +4,15 @@ from application.service.auth_service import AuthService
 from adapters.output.unique_ider.uuid_ider import UUIDIder
 from adapters.output.password_hasher.argon2_cffi_hasher import Argon2CffiHasher
 from adapters.output.user_repository.local_db import LocalDBUserRepository
+from adapters.output.jwt_handler.jwt_handler import JWTHandler
 
 auth_blueprint = Blueprint('auth', __name__)
 
 auth_service = AuthService(
     repo=LocalDBUserRepository(),
     hasher=Argon2CffiHasher(),
-    unique_ider=UUIDIder()
+    unique_ider=UUIDIder(),
+    token_handler=JWTHandler()
 )
 
 @auth_blueprint.route('/register', methods=['POST'])
@@ -51,6 +53,12 @@ def login_user():
 
     try:
         user = auth_service.login_user(email, password)
-        return jsonify(user.public_to_dict()), 200
+        token = auth_service.token_handler.generate_token(
+            {"user_id": user.id, "email": user.email, "role": user.role}
+        )
+        data = {}
+        data["user"] = user.public_to_dict()
+        data["token"] = token
+        return jsonify(data), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
