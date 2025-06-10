@@ -51,6 +51,6 @@ def login_user():
 
     try:
         user = auth_service.login_user(email, password)
-        return jsonify(user.to_dict()), 200
+        return jsonify(user.public_to_dict()), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
