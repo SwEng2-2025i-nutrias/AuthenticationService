@@ -13,16 +13,25 @@ class User:
         self.last_login_at = last_login_at
 
     # Converts the User object to a dictionary representation.
-    def to_dict(self) -> dict[str, str|datetime|None]:
-        return {
+    def to_dict(self) -> dict[str, str]:
+        # Serialize the User object to a dictionary.
+
+        # The date fields are converted to ISO format for JSON serialization.
+        created_at_str = self.created_at.isoformat()
+
+        data = {
             "id": self.id,
             "email": self.email,
             "password_hash": self.password_hash,
             "name": self.name,
             "role": self.role,
-            "created_at": self.created_at,
-            "last_login_at": self.last_login_at if self.last_login_at else None,
+            "created_at": created_at_str,
         }
+
+        if self.last_login_at:
+            data["last_login_at"] = self.last_login_at.isoformat()
+
+        return data
     
     # Creates a User object from a dictionary representation.
     @classmethod
