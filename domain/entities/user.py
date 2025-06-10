@@ -33,6 +33,24 @@ class User:
 
         return data
     
+    def public_to_dict(self) -> dict[str, str]:
+        """
+        Returns a public representation of the user, excluding sensitive information.
+        """
+
+        data = {
+            "id": self.id,
+            "email": self.email,
+            "name": self.name,
+            "role": self.role,
+            "created_at": self.created_at.isoformat()
+        }
+
+        if self.last_login_at:
+            data["last_login_at"] = self.last_login_at.isoformat()
+
+        return data
+    
     # Creates a User object from a dictionary representation.
     @classmethod
     def from_dict(cls, data: dict[str, str]):
