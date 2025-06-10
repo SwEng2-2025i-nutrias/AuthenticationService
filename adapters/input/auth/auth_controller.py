@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flasgger import swag_from
 from application.service.auth_service import AuthService
 from adapters.output.unique_ider.uuid_ider import UUIDIder
 from adapters.output.password_hasher.argon2_cffi_hasher import Argon2CffiHasher
@@ -13,6 +14,7 @@ auth_service = AuthService(
 )
 
 @auth_blueprint.route('/register', methods=['POST'])
+@swag_from()
 def register_user():
     data = request.get_json()
 
