@@ -14,7 +14,7 @@ auth_service = AuthService(
 )
 
 @auth_blueprint.route('/register', methods=['POST'])
-@swag_from()
+@swag_from("docs/register_user.yaml")
 def register_user():
     data = request.get_json()
 
@@ -36,6 +36,7 @@ def register_user():
         return jsonify({"error": str(e)}), 400
     
 @auth_blueprint.route('/login', methods=['POST'])
+@swag_from("docs/login.yaml")
 def login_user():
     data = request.get_json()
 
