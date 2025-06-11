@@ -62,3 +62,30 @@ def login_user():
         return jsonify(data), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
+    
+
+@auth_blueprint.route('/validate-token', methods=['GET'])
+@swag_from("docs/validate_token.yaml")
+def validate_token():
+    token = request.headers.get('Authorization')
+
+    if not token:
+        return jsonify({"error": "Missing Authorization header"}), 401
+    
+    if not token.startswith("Bearer "):
+        return jsonify({"error": "Invalid Authorization header format"}), 401
+    
+    token = token.split(" ")[1]
+
+    try:
+        payload = auth_service.token_handler.verify_token(token)
+        email = payload.get("email")
+        if not email:
+            return jsonify({"error": "Invalid token payload"}), 401
+        
+        user = auth_service.repo.get_user_by_email(email)
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+        return jsonify({"valid": True, "user_id": user.id}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
