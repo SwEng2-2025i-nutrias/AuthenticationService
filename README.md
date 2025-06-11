@@ -91,9 +91,9 @@ This service follows a **Hexagonal Architecture (Ports and Adapters)** pattern. 
 - **Body Example**:
   ```json
   {
-  "email": "samuevarga@gmail.com",
-  "password": "samuevarga"
-    }
+    "email": "samuevarga@gmail.com",
+    "password": "samuevarga"
+  }
 
     ```
 - **Curl Command**:
