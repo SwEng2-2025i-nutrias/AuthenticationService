@@ -1,7 +1,7 @@
 # AuthenticationService
 
 ## Overview
-The Authentication Service is responsible for managing user authentication and authorization across the microservices ecosystem. Its primary role is to ensure secure access by issuing and validating JWT tokens, which other services rely on to identify and authorize users.
+The Authentication Service is responsible for managing user authentication and authorization across the SOFEA ecosystem. Its primary role is to ensure secure access by issuing and validating JWT tokens, which other services rely on to identify and authorize users.
 
 The system exposes three main endpoints:
 - `POST /auth/login`:  
