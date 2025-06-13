@@ -52,7 +52,22 @@ This service follows a **Hexagonal Architecture (Ports and Adapters)** pattern. 
    pip install -r requirements.txt
    ```
 
-3. Run the Flask server:
+3. To enable JWT authentication, create a `.env` file in the root directory of your project and add a `SECRET_KEY` variable.
+
+  ``` env
+    SECRET_KEY=your_jwt_secret_key
+
+  ```
+
+   This key will be used to sign and verify JWT tokens.
+
+   > ⚠️ **Important Notes:**
+   > - Use a strong, unique string for the value of `SECRET_KEY`.
+   > - Keep this key secret and **never share it publicly**.
+   > - Even thoughthe `.env` file is already in your `.gitignore`, avoid committing it to version control by modifying it.
+
+
+4. Run the Flask server:
    ```bash
    python app.py
    ```
