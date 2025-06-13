@@ -7,7 +7,7 @@ import os
 
 load_dotenv()
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+JWT_KEY = os.getenv("JWT_KEY")
 EXP_TIME = 3600  # Token expiration time in seconds (1 hour)
 
 class JWTHandler(TokenManagerOutputPort):
@@ -25,7 +25,7 @@ class JWTHandler(TokenManagerOutputPort):
         data = payload.copy()
         data["exp"] = str(datetime.now() + timedelta(seconds=EXP_TIME))
 
-        return encode(payload, SECRET_KEY, algorithm="HS256")
+        return encode(payload, JWT_KEY, algorithm="HS256")
     
     def verify_token(self, token: str) -> dict[str, str]:
         """
@@ -41,4 +41,4 @@ class JWTHandler(TokenManagerOutputPort):
             jwt.ExpiredSignatureError: If the token has expired.
             jwt.InvalidTokenError: If the token is invalid.
         """
-        return decode(token, SECRET_KEY, algorithms=["HS256"])
+        return decode(token, JWT_KEY, algorithms=["HS256"])
