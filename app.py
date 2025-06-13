@@ -1,8 +1,14 @@
 from flask import Flask
+from flask_cors import CORS
 from flasgger import Swagger
 from adapters.input.auth.auth_controller import auth_blueprint
 
 app = Flask(__name__)
+CORS(app, resources={r"/auth/*": {
+    "origins": ["http://localhost:5173"],
+    "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    "allow_headers": ["Content-Type", "Authorization"]
+}})
 
 # Initialize Swagger for API documentation
 swagger = Swagger(app)
