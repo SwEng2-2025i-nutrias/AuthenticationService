@@ -14,9 +14,7 @@ flowchart TB
     I --> J["UserRepository (User Output Adapter): Save user in repository (Database)"]
     J --> K["Auth Controller (Input Adapter): Return 201 (Created): User created with public data"]
     K --> End
-    n1["Text Block"]
 
-    n1@{ shape: text}
     style A fill:#BBDEFB
     style B fill:#C8E6C9
     style C fill:#C8E6C9
