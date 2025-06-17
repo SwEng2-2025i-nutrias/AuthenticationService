@@ -5,7 +5,7 @@ from adapters.input.auth.auth_controller import auth_blueprint
 
 app = Flask(__name__)
 CORS(app, resources={r"/auth/*": {
-    "origins": ["http://localhost:5173"],
+    "origins": ["*"],
     "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     "allow_headers": ["Content-Type", "Authorization"]
 }})
