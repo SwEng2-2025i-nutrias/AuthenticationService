@@ -16,7 +16,7 @@ The system exposes four main endpoints:
   Enables other services to verify the validity of a JWT token sent in the `Authorization` header.  
   If valid and the user exists, the service responds with the user’s ID and a `valid: true` flag.
 
-- `GET /auth/user/<user_id>`:
+- `GET /auth/users/<user_id>`:
   Retrieves the public information of a user given their unique identifier.
 
 ---
@@ -133,14 +133,14 @@ This service follows a **Hexagonal Architecture (Ports and Adapters)** pattern. 
 
 #### 🔹 Get a User by ID
 
-- **GET** `/auth/user/<user_id>`
+- **GET** `/auth/users/<user_id>`
 
 - **Path Parameter**:
   - `user_id`: The unique identifier of the user.
 
 - **Curl Command**:
   ```bash
-  curl -X GET http://127.0.0.1:5000/auth/user/9d97e728-f219-4a8b-b084-5b20e1c1f785
+  curl -X GET http://127.0.0.1:5000/auth/users/9d97e728-f219-4a8b-b084-5b20e1c1f785
   ```
 
 
