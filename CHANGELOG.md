@@ -5,9 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.1.4] - 2025-07-10
+### Added
+- `/auth/user/<user_id>` endpoint for retrieving the user information by its `user_id`.
+
 ## [0.1.3] - 2025-06-11
 ### Added
-- `/auth/validate-token` endpoint for JWT validation
+- `/auth/validate-token` endpoint for JWT validation.
 
 ## [0.1.2] - 2025-06-09
 

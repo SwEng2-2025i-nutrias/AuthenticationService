@@ -89,3 +89,15 @@ def validate_token():
         return jsonify({"valid": True, "user_id": user.id}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
+
+# Get a user by ID
+@auth_blueprint.route('/user/<user_id>', methods=['GET'])
+@swag_from("docs/get_user.yaml")
+def get_user(user_id):
+    try:
+        user = auth_service.repo.get_user_by_id(user_id)
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+        return jsonify(user.public_to_dict()), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
