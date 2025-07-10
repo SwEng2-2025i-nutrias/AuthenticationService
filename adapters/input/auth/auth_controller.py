@@ -91,7 +91,7 @@ def validate_token():
         return jsonify({"error": str(e)}), 401
 
 # Get a user by ID
-@auth_blueprint.route('/user/<user_id>', methods=['GET'])
+@auth_blueprint.route('/users/<user_id>', methods=['GET'])
 @swag_from("docs/get_user.yaml")
 def get_user(user_id):
     try:
