@@ -1,9 +1,9 @@
 # AuthenticationService
 
 ## Overview
-The Authentication Service is responsible for managing user authentication and authorization across the microservices ecosystem. Its primary role is to ensure secure access by issuing and validating JWT tokens, which other services rely on to identify and authorize users.
+The Authentication Service is responsible for managing user authentication and authorization across the SOFEA ecosystem. Its primary role is to ensure secure access by issuing and validating JWT tokens, which other services rely on to identify and authorize users.
 
-The system exposes three main endpoints:
+The system exposes four main endpoints:
 - `POST /auth/login`:  
   Allows a user to log in to the system using an `email` and `password`.  
   On successful authentication, a JWT token is returned along with basic user information.
@@ -15,6 +15,9 @@ The system exposes three main endpoints:
 - `GET /auth/validate-token`:  
   Enables other services to verify the validity of a JWT token sent in the `Authorization` header.  
   If valid and the user exists, the service responds with the user’s ID and a `valid: true` flag.
+
+- `GET /auth/user/<user_id>`:
+  Retrieves the public information of a user given their unique identifier.
 
 ---
 ## ⚙️ System Architecture
@@ -79,8 +82,6 @@ This service follows a **Hexagonal Architecture (Ports and Adapters)** pattern. 
 
 ### 📮 API Endpoints
 
-#### 🔸 Create a User
-
 #### 🔹 Register a User
 
 - **POST** `/auth/register`
@@ -122,12 +123,26 @@ This service follows a **Hexagonal Architecture (Ports and Adapters)** pattern. 
 
 - **GET** `/auth/validate-token`
 - **Headers**
-    - Authorization: Bearer <your_jwt_token>
+    - ```Authorization: Bearer <your_jwt_token>```
 - **Curl Command**:
   ```bash
   curl -X GET http://127.0.0.1:5000/auth/validate-token \
      -H "Authorization: Bearer <your_jwt_token>"
   ```
+
+
+#### 🔹 Get a User by ID
+
+- **GET** `/auth/user/<user_id>`
+
+- **Path Parameter**:
+  - `user_id`: The unique identifier of the user.
+
+- **Curl Command**:
+  ```bash
+  curl -X GET http://127.0.0.1:5000/auth/user/9d97e728-f219-4a8b-b084-5b20e1c1f785
+  ```
+
 
 ---
 
