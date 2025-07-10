@@ -47,3 +47,14 @@ class LocalDBUserRepository(AuthOutputPort):
                 self._save_db(db)
                 return
         raise ValueError("User not found in the database.")
+    
+    def get_user_by_id(self, user_id: str) -> User | None:
+        """
+        Retrieves a user by their unique ID from the local JSON database.
+        Returns None if the user does not exist.
+        """
+        db = self._load_db()
+        for user_data in db:
+            if user_data['id'] == user_id:
+                return User.from_dict(user_data)
+        return None

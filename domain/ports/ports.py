@@ -34,3 +34,11 @@ class AuthOutputPort(ABC):
         Updates the user in the database or any other storage.
         """
         pass 
+
+    @abstractmethod
+    def get_user_by_id(self, user_id: str) -> User | None:
+        """
+        Retrieves a user by their unique ID.
+        Returns None if the user does not exist.
+        """
+        pass
