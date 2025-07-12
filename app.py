@@ -2,6 +2,11 @@ from flask import Flask
 from flask_cors import CORS
 from flasgger import Swagger
 from adapters.input.auth.auth_controller import auth_blueprint
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv(override=True)
 
 app = Flask(__name__)
 CORS(app, resources={r"/auth/*": {
