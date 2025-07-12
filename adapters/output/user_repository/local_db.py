@@ -3,7 +3,13 @@ from pathlib import Path
 from domain.ports.ports import AuthOutputPort
 from domain.entities.user import User
 
+import os
+
 DB_FILE = Path(__file__).parent / 'db.json'
+
+# If the environment variable is test, use a different database file
+if os.getenv('APP_ENV') == 'test':
+    DB_FILE = Path(__file__).parent / 'test_db.json'
 
 class LocalDBUserRepository(AuthOutputPort):
     def _load_db(self)->list[dict[str, str]]:
