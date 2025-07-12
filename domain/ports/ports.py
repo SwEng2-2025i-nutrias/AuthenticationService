@@ -42,3 +42,10 @@ class AuthOutputPort(ABC):
         Returns None if the user does not exist.
         """
         pass
+
+    @abstractmethod
+    def delete_database(self) -> None:
+        """
+        Deletes the entire user database.
+        """
+        pass

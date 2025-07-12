@@ -64,3 +64,9 @@ class LocalDBUserRepository(AuthOutputPort):
             if user_data['id'] == user_id:
                 return User.from_dict(user_data)
         return None
+    
+    def delete_database(self) -> None:
+        """
+        Deletes the entire user database by removing the JSON file.
+        """
+        self._save_db([])  # Clear the database by saving an empty list
