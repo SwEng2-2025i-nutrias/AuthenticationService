@@ -107,6 +107,7 @@ def get_user(user_id):
 # Delete the entire user database
 # Only for testing purposes
 @auth_blueprint.route('/__test__/database', methods=['DELETE'])
+@swag_from("docs/delete_database.yaml")
 def delete_database():
     APP_ENV = os.getenv('APP_ENV', 'development')
 
