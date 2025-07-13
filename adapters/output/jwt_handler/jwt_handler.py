@@ -1,11 +1,9 @@
 from domain.ports.token_handler import TokenManagerOutputPort
-from dotenv import load_dotenv
+
 from datetime import datetime, timedelta
 from jwt import encode, decode
 import os
 # Load environment variables from .env file
-
-load_dotenv()
 
 JWT_KEY = os.getenv("JWT_KEY")
 EXP_TIME = 3600  # Token expiration time in seconds (1 hour)

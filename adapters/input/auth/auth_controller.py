@@ -6,6 +6,8 @@ from adapters.output.password_hasher.argon2_cffi_hasher import Argon2CffiHasher
 from adapters.output.user_repository.local_db import LocalDBUserRepository
 from adapters.output.jwt_handler.jwt_handler import JWTHandler
 
+import os
+
 auth_blueprint = Blueprint('auth', __name__)
 
 auth_service = AuthService(
@@ -99,5 +101,21 @@ def get_user(user_id):
         if not user:
             return jsonify({"error": "User not found"}), 404
         return jsonify(user.public_to_dict()), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+# Delete the entire user database
+# Only for testing purposes
+@auth_blueprint.route('/__test__/database', methods=['DELETE'])
+@swag_from("docs/delete_database.yaml")
+def delete_database():
+    APP_ENV = os.getenv('APP_ENV', 'development')
+
+    if APP_ENV != 'test':
+        return jsonify({"error": "This endpoint is only available in test environment"}), 403
+    
+    try:
+        auth_service.repo.delete_database()
+        return jsonify({"message": "Database deleted successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
