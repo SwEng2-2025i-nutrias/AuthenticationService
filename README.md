@@ -176,3 +176,64 @@ This service follows a **Hexagonal Architecture (Ports and Adapters)** pattern. 
 Once the server is running, you can access the interactive API documentation via Swagger UI at:
 
 👉 **http://127.0.0.1:5001/apidocs/**
+
+### 📈 Observability and Metrics
+
+This service exposes performance and runtime metrics in a [Prometheus](https://prometheus.io/) compatible format. These metrics help monitor and analyze:
+
+- Total number of HTTP requests
+- Latency per endpoint
+- Errors grouped by method and HTTP status code
+- Python runtime and garbage collection (GC) statistics
+
+#### 🔸 Metrics Endpoint
+
+- **GET** `/metrics`  
+- **Description**:  
+  Exposes runtime metrics collected from the Flask application and Python environment in Prometheus format.
+
+> ⚠️ This endpoint is **only available when the `FLASK_DEBUG` environment variable is set to `"false"`**.  
+> When `debug=True`, Flask spawns multiple processes or threads, which can prevent proper metric exposure.
+
+---
+
+#### ✅ How to Enable Metrics
+
+1. In your `.env` file, set the following environment variable:
+
+```env
+FLASK_DEBUG=false
+```
+
+2. Run the application:
+
+```bash
+python app.py
+```
+
+3. Visit the metrics endpoint in your browser or let Prometheus scrape it from:
+
+```
+http://localhost:5001/metrics
+```
+
+---
+
+#### 🛠️ Prometheus Integration (Optional)
+
+To integrate with a local [Prometheus](https://prometheus.io/) instance, add this job to your `prometheus.yml` configuration:
+
+```yaml
+scrape_configs:
+  - job_name: 'auth_service'
+    static_configs:
+      - targets: ['localhost:5001']
+```
+
+Prometheus will then automatically collect metrics from this service.
+
+---
+
+### 📊 Recommended: Use Grafana for Visualization
+
+While Prometheus is great for storage and querying, [Grafana](https://grafana.com/) can be used to build beautiful dashboards on top of the collected metrics.
