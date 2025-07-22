@@ -37,4 +37,4 @@ if __name__ == "__main__":
     debug_mode = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
 
     # If the app is in debug mode, the prometheus metrics endpoint won't be available
-    app.run(debug=debug_mode, port=5001)
+    app.run(debug=False, host='0.0.0.0', port=5001)
