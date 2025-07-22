@@ -8,10 +8,10 @@ rule_files:
 
 # Lista de endpoints que Prometheus monitoreará
 scrape_configs:
-  # Configuración para el servicio de autenticación Flask (desde Docker)
+  # Configuración para el servicio de autenticación Flask (externo)
   - job_name: 'authentication-service'
     static_configs:
-      - targets: ['auth-service:5001']
+      - targets: ['host.docker.internal:5001']
     metrics_path: '/metrics'
     scrape_interval: 10s
     scrape_timeout: 10s
@@ -20,6 +20,14 @@ scrape_configs:
   - job_name: 'product-service'
     static_configs:
       - targets: ['host.docker.internal:5000']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 10s
+
+  # Configuración para el servicio de búsqueda de productos Flask (externo)
+  - job_name: 'product-search-service'
+    static_configs:
+      - targets: ['host.docker.internal:5002']
     metrics_path: '/metrics'
     scrape_interval: 10s
     scrape_timeout: 10s
